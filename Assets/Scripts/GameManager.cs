@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
     {
         x.transform.parent = null;
         x.gameObject.AddComponent<Rigidbody>().isKinematic = true;
+        x.gameObject.AddComponent<Stack>();
         x.gameObject.GetComponent<Collider>().isTrigger = true;
         x.tag = gameObject.tag;
         Collected.Add(x.transform);

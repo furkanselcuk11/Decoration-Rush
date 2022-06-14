@@ -64,5 +64,13 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.gamemanagerInstance.Add(other.gameObject);
         }
+        if (other.CompareTag("Fail"))
+        {
+            Debug.Log("Fail");
+        }
+        if (other.CompareTag("Merge"))
+        {
+            Debug.Log("Merge");
+        }
     }
 }

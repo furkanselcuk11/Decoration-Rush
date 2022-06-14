@@ -10,6 +10,10 @@ TagManager:
   - Chair
   - Sofa
   - Door
+  - Merge
+  - Color
+  - Customize
+  - Fail
   layers:
   - Default
   - TransparentFX
