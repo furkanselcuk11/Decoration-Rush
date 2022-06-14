@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -62,13 +62,21 @@ public class GameManager : MonoBehaviour
     }
     public void Fail(GameObject x)
     {
-        x.GetComponent<Collider>().enabled = false; // Fail(testere) kapýsýndan geçdiðimizde kapýnýn mesh collider kapat
-        if(Collected.Count > 1)
+        if (Collected.Count>0)
         {
-            for (int i = 1; i < Collected.Count; i++)
+            for (int i = 0; i < Collected.Count; i++)
             {
-                Destroy(Collected[i].gameObject);
-            }
+                Collected.ElementAt(Collected.Count - 1).gameObject.SetActive(false);
+                Destroy(Collected.ElementAt(Collected.Count - 1).gameObject);
+                Collected.RemoveAt(Collected.Count - 1);                
+            }            
         }
+        x.GetComponent<Collider>().enabled = false; // Fail(testere) kapýsýndan geçdiðimizde kapýnýn mesh collider kapat        
+    }
+    public void Restart()
+    {
+        startTheGame = false;
+        Debug.Log("GameOver");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

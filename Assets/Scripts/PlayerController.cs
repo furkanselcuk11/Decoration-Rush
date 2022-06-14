@@ -26,6 +26,10 @@ public class PlayerController : MonoBehaviour
             transform.Translate(0, 0, speed * Time.fixedDeltaTime);
             anim.SetBool("isRunning", true);
         }
+        else
+        {
+            anim.SetBool("isRunning", false);
+        }
         MoveInput();    // Player hareket kontrolü
     }
     void MoveInput()
@@ -64,6 +68,9 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.gamemanagerInstance.Add(other.gameObject);
         }
-        
+        if (other.CompareTag("Fail"))
+        {
+            GameManager.gamemanagerInstance.Restart();
+        }
     }
 }
