@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Wood
+  - Saw
+  - Stool
+  - Chair
+  - Sofa
+  - Door
   layers:
   - Default
   - TransparentFX
