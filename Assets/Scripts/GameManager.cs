@@ -60,4 +60,15 @@ public class GameManager : MonoBehaviour
         x.tag = gameObject.tag;
         Collected.Add(x.transform);
     }
+    public void Fail(GameObject x)
+    {
+        x.GetComponent<Collider>().enabled = false; // Fail(testere) kapýsýndan geçdiðimizde kapýnýn mesh collider kapat
+        if(Collected.Count > 1)
+        {
+            for (int i = 1; i < Collected.Count; i++)
+            {
+                Destroy(Collected[i].gameObject);
+            }
+        }
+    }
 }
