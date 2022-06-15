@@ -64,7 +64,8 @@ public class GameManager : MonoBehaviour
     {
         if (Collected.Count>0)
         {
-            for (int i = 0; i < Collected.Count; i++)
+            int totalCollect = Collected.Count;
+            for (int i = 0; i < totalCollect-1; i++)
             {
                 Collected.ElementAt(Collected.Count - 1).gameObject.SetActive(false);
                 Destroy(Collected.ElementAt(Collected.Count - 1).gameObject);
@@ -76,7 +77,7 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         startTheGame = false;
-        Debug.Log("GameOver");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log("Restart");
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
