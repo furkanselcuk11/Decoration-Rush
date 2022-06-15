@@ -13,7 +13,13 @@ public class GameManager : MonoBehaviour
     [Header("Game Controller")]
     [SerializeField] private GameObject Player;
     [SerializeField] private float distance,swipeSpeed, diffBetweenItems;
-    public List<Transform> Collected = new List<Transform>();
+    public List<Transform> Collected = new List<Transform>();   // Toplanan objelerin listesi
+    [Space]
+    [Header("Merge Controller")]
+    [SerializeField] private List<Transform> Items = new List<Transform>(); // Parkurdaki objelerin  tutulduðu liste
+    [SerializeField] private GameObject itemsParent;    // Parkurda tutulan objelerin bulunduðu parent obje
+    [SerializeField] private MeshFilter modelYouWantToChange;   // Deðiþecek obje
+    [SerializeField] private Mesh modelYouWantToUse;    // secilen obje
 
     private void Awake()
     {
@@ -25,6 +31,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Collected.Add(Player.transform);
+        for (int i = 0; i < itemsParent.transform.childCount; i++)
+        {
+            Items.Add(itemsParent.transform.GetChild(i).transform);
+        }
     }
     void Update()
     {
@@ -58,7 +68,9 @@ public class GameManager : MonoBehaviour
         x.gameObject.AddComponent<Stack>();
         x.gameObject.GetComponent<Collider>().isTrigger = true;
         x.tag = gameObject.tag;
-        Collected.Add(x.transform);
+        Collected.Add(x.transform); // Toplanan objeleri Collected listesine ekler
+
+        Items.Remove(x.transform); // Objelerin tutulduðu ana parent listesinden temas edilen objeler silinir 
     }
     public void Fail(GameObject x)
     {
@@ -73,6 +85,19 @@ public class GameManager : MonoBehaviour
             }            
         }
         x.GetComponent<Collider>().enabled = false; // Fail(testere) kapýsýndan geçdiðimizde kapýnýn mesh collider kapat        
+    }
+    public void Merge()
+    {
+        //modelYouWantToChange.mesh = modelYouWantToUse;    // Deðiþecek obje=secilen obje
+        //modelYouWantToChange.name = "Cube";
+        //modelYouWantToChange.tag = "Chair";
+
+        for (int i = 0; i < Items.Count; i++)
+        {
+            itemsParent.transform.GetChild(i).GetComponent<MeshFilter>().mesh = modelYouWantToUse;
+            itemsParent.transform.GetChild(i).GetComponent<MeshFilter>().name="Chair";
+            itemsParent.transform.GetChild(i).GetComponent<MeshFilter>().name="Chair";
+        }
     }
     public void Restart()
     {

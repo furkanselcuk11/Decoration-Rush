@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Stack : MonoBehaviour
-{
-    
+{    
     void Start()
     {
         
@@ -28,8 +27,9 @@ public class Stack : MonoBehaviour
         }
         if (other.CompareTag("Merge"))
         {
-            // Merge içinden geçem tüm objeler belirtilen objelere dönüþür
+            // Merge içinden geçerse bir sonraki objeye dönüþür
             Debug.Log("Merge");
+            GameManager.gamemanagerInstance.Merge();
         }
         if (other.CompareTag("Color"))
         {
