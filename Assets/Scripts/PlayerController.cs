@@ -68,9 +68,5 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.gamemanagerInstance.Add(other.gameObject);
         }
-        if (other.CompareTag("Fail"))
-        {
-            GameManager.gamemanagerInstance.Restart();
-        }
     }
 }

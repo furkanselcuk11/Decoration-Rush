@@ -29,7 +29,7 @@ public class Stack : MonoBehaviour
         {
             // Merge içinden geçerse bir sonraki objeye dönüþür
             Debug.Log("Merge");
-            GameManager.gamemanagerInstance.Merge(other.gameObject);
+            GameManager.gamemanagerInstance.Merge(other.gameObject);            
         }
         if (other.CompareTag("Color"))
         {

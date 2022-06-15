@@ -1531,7 +1531,6 @@ MonoBehaviour:
   distance: 5
   swipeSpeed: 15
   diffBetweenItems: 1
-  collectedObjects: {fileID: 1926794447}
   Collected: []
   PakuourItems: []
   pakuourItemsParent: {fileID: 728175704}
