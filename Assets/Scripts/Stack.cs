@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Stack : MonoBehaviour
-{    
+{
     void Start()
     {
-        
+
     }
     void Update()
     {
-        
+
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -29,13 +29,13 @@ public class Stack : MonoBehaviour
         {
             // Merge içinden geçerse bir sonraki objeye dönüþür
             Debug.Log("Merge");
-            GameManager.gamemanagerInstance.Merge(other.gameObject);            
+            GameManager.gamemanagerInstance.Merge(other.gameObject);
         }
         if (other.CompareTag("Color"))
         {
             // Color içinden geçen objeler belirtilen rengi alýr
             Debug.Log("Color");
-            GameManager.gamemanagerInstance.ColorChange(other.gameObject,this.gameObject);
+            GameManager.gamemanagerInstance.ColorChange(other.gameObject, this.gameObject);
         }
         if (other.CompareTag("Polish"))
         {

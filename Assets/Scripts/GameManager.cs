@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        
+
     }
     private void FixedUpdate()
     {
@@ -50,11 +50,11 @@ public class GameManager : MonoBehaviour
             {
                 var firstItem = Collected.ElementAt(i - 1);
                 var sectItem = Collected.ElementAt(i);
-                                
+
                 // Stack (Toplama) iþlemi sonrasý toplanan objelerin  sýralý þekilde gidiþini ayarlar
                 sectItem.position = new Vector3(Mathf.Lerp(sectItem.position.x, firstItem.position.x, swipeSpeed * Time.deltaTime),
                     sectItem.position.y,
-                    Mathf.Lerp(sectItem.position.z, firstItem.position.z + diffBetweenItems, swipeSpeed * Time.deltaTime));                
+                    Mathf.Lerp(sectItem.position.z, firstItem.position.z + diffBetweenItems, swipeSpeed * Time.deltaTime));
             }
         }
     }
@@ -74,15 +74,15 @@ public class GameManager : MonoBehaviour
     public void Fail(GameObject failGate)
     {
         // Toplanan objeler silinir
-        if (Collected.Count>0)
+        if (Collected.Count > 0)
         {
             int totalCollect = Collected.Count;
-            for (int i = 0; i < totalCollect-1; i++)
+            for (int i = 0; i < totalCollect - 1; i++)
             {
                 // totalCollect-1 olmasý player objesinin içinde olmasýndan ve silmemesi için
                 Destroy(Collected.ElementAt(Collected.Count - 1).gameObject);   // Tüm objeler silinir 
                 Collected.RemoveAt(Collected.Count - 1); // Silinnen objeler Collected listesinden atýlýr               
-            }            
+            }
         }
         failGate.GetComponent<Collider>().enabled = false; // Fail(testere) kapýsýndan geçdiðimizde kapýnýn mesh collider kapat        
     }
@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
         {
             // Parkurda bulunan tüm toplanacak objeleri deðiþtirir
             pakuourItemsParent.transform.GetChild(i).GetComponent<MeshFilter>().mesh = modelYouWantToUse;   // pakuourItemsParent(parkurda) listesinde bulunan tüm objelerin mesh özelliðini deðiþtirir
-            pakuourItemsParent.transform.GetChild(i).GetComponent<MeshFilter>().name="Chair";
+            pakuourItemsParent.transform.GetChild(i).GetComponent<MeshFilter>().name = "Chair";
             // Materyal rengi
             // pakuourItemsParent.transform.GetChild(i).GetComponent<MeshFilter>().tag="Chair";
             // pakuourItemsParent(parkurda) listesinde bulunan tüm objelerin isim ve tagýný deðiþtirir
@@ -127,10 +127,10 @@ public class GameManager : MonoBehaviour
         }
         mergeGate.GetComponent<Collider>().enabled = false; // Merge kapýsýndan geçdiðimizde kapýnýn mesh collider kapat
     }
-    public void ColorChange(GameObject contactObject,GameObject colorGate)
+    public void ColorChange(GameObject contactObject, GameObject colorGate)
     {
         // Temas edilen objelerin rengi deðiþir
-        colorGate.transform.GetComponent<MeshRenderer>().material= contactObject.transform.GetComponent<MeshRenderer>().material;     
+        colorGate.transform.GetComponent<MeshRenderer>().material = contactObject.transform.GetComponent<MeshRenderer>().material;
     }
     public void Polishing(GameObject contactObject)
     {
