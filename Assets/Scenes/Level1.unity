@@ -1528,7 +1528,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startTheGame: 0
   Player: {fileID: 8601213316133879318}
-  distance: 5
   swipeSpeed: 15
   diffBetweenItems: 1
   Collected: []
@@ -1740,8 +1739,8 @@ GameObject:
   - component: {fileID: 1474482799}
   - component: {fileID: 1474482798}
   m_Layer: 0
-  m_Name: Customize
-  m_TagString: Customize
+  m_Name: Polish
+  m_TagString: Polish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

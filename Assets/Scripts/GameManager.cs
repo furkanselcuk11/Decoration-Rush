@@ -122,4 +122,10 @@ public class GameManager : MonoBehaviour
         // Temas edilen objelerin rengi deðiþir
         colorGate.transform.GetComponent<MeshRenderer>().material= contactObject.transform.GetComponent<MeshRenderer>().material;     
     }
+    public void Polishing(GameObject contactObject)
+    {
+        // Temas edilen objelerin cilalamasý yapýlýr
+        // Efekt ekle
+        // Para kazan
+    }
 }

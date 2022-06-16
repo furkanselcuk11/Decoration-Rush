@@ -12,8 +12,8 @@ TagManager:
   - Door
   - Merge
   - Color
-  - Customize
   - Fail
+  - Polish
   layers:
   - Default
   - TransparentFX

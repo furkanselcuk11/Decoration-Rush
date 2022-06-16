@@ -37,10 +37,11 @@ public class Stack : MonoBehaviour
             Debug.Log("Color");
             GameManager.gamemanagerInstance.ColorChange(other.gameObject,this.gameObject);
         }
-        if (other.CompareTag("Customize"))
+        if (other.CompareTag("Polish"))
         {
             // Customize içinden geçen objeler cilalanýr
-            Debug.Log("Customize");
+            Debug.Log("Polish");
+            GameManager.gamemanagerInstance.Polishing(other.gameObject);
         }
     }
 }
