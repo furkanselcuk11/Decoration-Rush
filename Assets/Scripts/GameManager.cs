@@ -87,10 +87,15 @@ public class GameManager : MonoBehaviour
         }
         failGate.GetComponent<Collider>().enabled = false; // Fail(testere) kapýsýndan geçdiðimizde kapýnýn mesh collider kapat        
     }
+    public void Restart()
+    {
+        startTheGame = false;
+        Debug.Log("GameOver");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
     public void Merge(GameObject mergeGate)
     {
-        //modelYouWantToChange.mesh = modelYouWantToUse;    // Deðiþecek obje=secilen obje
-        // Birleþtirme iþlemi yapýlýr
+        // Birleþtirme iþlemi yapýlýr -- Parkurdaki tüm objeleri dönüþtürür
         for (int i = 0; i < PakuourItems.Count; i++)
         {
             // Parkurda bulunan tüm toplanacak objeleri deðiþtirir
@@ -102,6 +107,7 @@ public class GameManager : MonoBehaviour
             pakuourItemsParent.transform.GetChild(i).gameObject.AddComponent<BoxCollider>(); // pakuourItemsParent(parkurda) listesinde bulunan tüm objelerin BoxCollider ekler (Deðiþen meshe göre Collider boyut almasý için)
         }
 
+        // Birleþtirme iþlemi yapýlýr -- Toplanan objeleri tek bir objeye dönüþtürmek için
         if (Collected.Count > 0)
         {
             int totalCollect = Collected.Count;
