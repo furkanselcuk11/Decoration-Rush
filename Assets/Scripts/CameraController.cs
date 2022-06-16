@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private Transform _target;
-    [SerializeField] private Vector3 _offset;
-    [SerializeField] private float _chaseSpeed = 5;
+    [SerializeField] private Transform _target; // Takip edilecek obje
+    [SerializeField] private Vector3 _offset;   // Kamera ile takip edilecek obje arasındaki mesafe
+    [SerializeField] private float _chaseSpeed = 5; // Takip etme hızı
 
     private void LateUpdate()
     {

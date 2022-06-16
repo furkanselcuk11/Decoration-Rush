@@ -23,14 +23,16 @@ public class PlayerController : MonoBehaviour
     {
         if (GameManager.gamemanagerInstance.startTheGame)
         {
-            transform.Translate(0, 0, speed * Time.fixedDeltaTime);
-            anim.SetBool("isRunning", true);
+            // Eðer StartGame true ise hareket et
+            transform.Translate(0, 0, speed * Time.fixedDeltaTime); // Karakter speed deeri hýzýdna ileri hareket eder
+            anim.SetBool("isRunning", true);    // Koþma animasyonu çalýþýr
         }
         else
         {
-            anim.SetBool("isRunning", false);
+            // Eðer StartGame False ise  hareket etmez
+            anim.SetBool("isRunning", false);   // Koþma animasyonu durur ve default olarak bekleme animsayonu çalýþýr
         }
-        MoveInput();    // Player hareket kontrolü
+        MoveInput();    // Player hareket kontrolü çalýþtýr
     }
     void MoveInput()
     {
@@ -43,13 +45,11 @@ public class PlayerController : MonoBehaviour
         {   // Eðer klavyede sol ok tuþuna basýldýysa yada "MobileInput" scriptinin swipeLeft deðeri True ise  Sola hareket gider
             moveX = Mathf.Clamp(moveX - 1 * horizontalspeed * Time.fixedDeltaTime, -defaultSwipe, defaultSwipe);    // Pozisyon sýnýrlandýrýlmasý koyulacaksa
             // Player objesinin x (sol) pozisyonundaki gideceði min-max sýnýrý belirler
-            //moveX = moveX - 1 * horizontalspeed * Time.fixedDeltaTime;    // Pozisyon sýnýrlandýrýlmasý yoksa 
         }
         else if (Input.GetKey(KeyCode.RightArrow) || MobileInput.instance.swipeRight)
         {   // Eðer klavyede sað ok tuþuna basýldýysa yada "MobileInput" scriptinin swipeRight deðeri True ise Saða hareket gider  
             moveX = Mathf.Clamp(moveX + 1 * horizontalspeed * Time.fixedDeltaTime, -defaultSwipe, defaultSwipe);    // Pozisyon sýnýrlandýrýlmasý koyulacaksa
             // Player objesinin x (sað) pozisyonundaki gideceði min-max sýnýrý belirler
-            //moveX = moveX + 1 * horizontalspeed * Time.fixedDeltaTime;    // Pozisyon sýnýrlandýrýlmasý yoksa 
         }
         else
         {
