@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
 
         PakuourItems.Remove(collectedObject.transform); // Objelerin tutulduðu ana parent listesinden temas edilen objeler silinir 
     }
-    public void Fail(GameObject colorGate)
+    public void Fail(GameObject failGate)
     {
         // Toplanan objeler silinir
         if (Collected.Count>0)
@@ -85,9 +85,9 @@ public class GameManager : MonoBehaviour
                 Collected.RemoveAt(Collected.Count - 1); // Silinnen objeler Collected listesinden atýlýr               
             }            
         }
-        colorGate.GetComponent<Collider>().enabled = false; // Fail(testere) kapýsýndan geçdiðimizde kapýnýn mesh collider kapat        
+        failGate.GetComponent<Collider>().enabled = false; // Fail(testere) kapýsýndan geçdiðimizde kapýnýn mesh collider kapat        
     }
-    public void Merge(GameObject colorGate)
+    public void Merge(GameObject mergeGate)
     {
         //modelYouWantToChange.mesh = modelYouWantToUse;    // Deðiþecek obje=secilen obje
         // Birleþtirme iþlemi yapýlýr
@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
             Collected.ElementAt(1).transform.GetComponent<MeshFilter>().mesh = modelYouWantToUse;
             Collected.ElementAt(1).transform.GetComponent<MeshFilter>().name = "Chair";
         }
-        colorGate.GetComponent<Collider>().enabled = false; // Merge kapýsýndan geçdiðimizde kapýnýn mesh collider kapat
+        mergeGate.GetComponent<Collider>().enabled = false; // Merge kapýsýndan geçdiðimizde kapýnýn mesh collider kapat
     }
     public void ColorChange(GameObject contactObject,GameObject colorGate)
     {
