@@ -35,6 +35,7 @@ public class Stack : MonoBehaviour
         {
             // Color içinden geçen objeler belirtilen rengi alýr
             Debug.Log("Color");
+            GameManager.gamemanagerInstance.ColorChange(other.gameObject,this.gameObject);
         }
         if (other.CompareTag("Customize"))
         {
