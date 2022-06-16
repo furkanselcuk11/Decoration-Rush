@@ -20,7 +20,8 @@ public class GameManager : MonoBehaviour
     [Header("Merge Controller")]
     [SerializeField] private List<Transform> PakuourItems = new List<Transform>(); // Parkurdaki objelerin  tutulduðu liste
     [SerializeField] private GameObject pakuourItemsParent;    // Parkurda tutulan objelerin bulunduðu parent obje
-    [SerializeField] private Mesh modelYouWantToUse;    // Kullanýlacak(deðiþim olmasý istenilen) modelin meshi
+    [SerializeField] private Mesh[] modelYouWantToUse;    // Kullanýlacak(deðiþim olmasý istenilen) modelin meshi
+    [SerializeField] private int currentModel;
 
     private void Awake()
     {
@@ -37,10 +38,24 @@ public class GameManager : MonoBehaviour
             PakuourItems.Add(pakuourItemsParent.transform.GetChild(i).transform);   // Parkurda tutulan objelerin bulunduðu parent objenin altýnda kaç adet obje varsa listeye ekler
             pakuourItemsParent.transform.GetChild(i).gameObject.AddComponent<BoxCollider>(); //pakuourItemsParent altýndaki tüm objeler collider ekler
         }
+        currentModel = 0;
     }
     void Update()
     {
+        if (currentModel == 0)
+        {
+            for (int i = 0; i < PakuourItems.Count; i++)
+            {                
+                pakuourItemsParent.transform.GetChild(i).GetComponent<MeshFilter>().mesh = modelYouWantToUse[currentModel];   // pakuourItemsParent(parkurda) listesinde bulunan tüm objelerin mesh özelliðini deðiþtirir
+                pakuourItemsParent.transform.GetChild(i).GetComponent<MeshFilter>().name = modelYouWantToUse[currentModel].name;
+                // Materyal rengi
+                // pakuourItemsParent.transform.GetChild(i).GetComponent<MeshFilter>().tag="Chair";
+                // pakuourItemsParent(parkurda) listesinde bulunan tüm objelerin isim ve tagýný deðiþtirir
+                Destroy(pakuourItemsParent.transform.GetChild(i).GetComponent<BoxCollider>());  // pakuourItemsParent(parkurda) listesinde bulunan tüm objelerin BoxCollider kaldýrýr
+                pakuourItemsParent.transform.GetChild(i).gameObject.AddComponent<BoxCollider>(); // pakuourItemsParent(parkurda) listesinde bulunan tüm objelerin BoxCollider ekler (Deðiþen meshe göre Collider boyut almasý için)
+            }
 
+        }
     }
     private void FixedUpdate()
     {
@@ -74,6 +89,7 @@ public class GameManager : MonoBehaviour
     public void Fail(GameObject failGate)
     {
         // Toplanan objeler silinir
+        currentModel = 0;
         if (Collected.Count > 0)
         {
             int totalCollect = Collected.Count;
@@ -96,11 +112,19 @@ public class GameManager : MonoBehaviour
     public void Merge(GameObject mergeGate)
     {
         // Parkurdaki tüm objeleri toplanmasý gereken objeye dönüþtürür
+        if (currentModel < modelYouWantToUse.Length-1)
+        {
+            currentModel++;
+        }
+        else
+        {
+            currentModel = modelYouWantToUse.Length - 1;
+        }
         for (int i = 0; i < PakuourItems.Count; i++)
         {
             // Parkurda bulunan tüm toplanacak objeleri deðiþtirir
-            pakuourItemsParent.transform.GetChild(i).GetComponent<MeshFilter>().mesh = modelYouWantToUse;   // pakuourItemsParent(parkurda) listesinde bulunan tüm objelerin mesh özelliðini deðiþtirir
-            pakuourItemsParent.transform.GetChild(i).GetComponent<MeshFilter>().name = "Chair";
+            pakuourItemsParent.transform.GetChild(i).GetComponent<MeshFilter>().mesh = modelYouWantToUse[currentModel];   // pakuourItemsParent(parkurda) listesinde bulunan tüm objelerin mesh özelliðini deðiþtirir
+            pakuourItemsParent.transform.GetChild(i).GetComponent<MeshFilter>().name = modelYouWantToUse[currentModel].name;
             // Materyal rengi
             // pakuourItemsParent.transform.GetChild(i).GetComponent<MeshFilter>().tag="Chair";
             // pakuourItemsParent(parkurda) listesinde bulunan tüm objelerin isim ve tagýný deðiþtirir
@@ -119,12 +143,12 @@ public class GameManager : MonoBehaviour
                 Collected.RemoveAt(Collected.Count - 1);
             }
             // En baþtaki objenin mesh özelliðini deðiþtirir
-            Collected.ElementAt(1).transform.GetComponent<MeshFilter>().mesh = modelYouWantToUse;
-            Collected.ElementAt(1).transform.GetComponent<MeshFilter>().name = "Chair";
+            Collected.ElementAt(1).transform.GetComponent<MeshFilter>().mesh = modelYouWantToUse[currentModel];
+            Collected.ElementAt(1).transform.GetComponent<MeshFilter>().name = modelYouWantToUse[currentModel].name;
             // Materyal rengi
             // pakuourItemsParent.transform.GetChild(i).GetComponent<MeshFilter>().tag="Chair";
             // pakuourItemsParent(parkurda) listesinde bulunan tüm objelerin isim ve tagýný deðiþtirir
-        }
+        }        
         mergeGate.GetComponent<Collider>().enabled = false; // Merge kapýsýndan geçdiðimizde kapýnýn mesh collider kapat
     }
     public void ColorChange(GameObject contactObject, GameObject colorGate)
