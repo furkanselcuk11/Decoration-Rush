@@ -2131,6 +2131,11 @@ MonoBehaviour:
   - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   - {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
   - {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  metarialYouWantToUse:
+  - {fileID: 2100000, guid: 0825d09c867508a4f8a3fdf50a6cdc79, type: 2}
+  - {fileID: 2100000, guid: 8b49f646ef5a6a541aae926cae3dd649, type: 2}
+  - {fileID: 2100000, guid: e55115b504de4784c945ff22a7760500, type: 2}
+  - {fileID: 2100000, guid: 4449dbefd0ab1584887fe47db3c82991, type: 2}
   currentModel: 0
 --- !u!4 &1262167824
 Transform:
