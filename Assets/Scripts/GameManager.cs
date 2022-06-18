@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,6 +24,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Mesh[] modelYouWantToUse;    // Kullanýlacak(deðiþim olmasý istenilen) modelin meshi
     [SerializeField] private Material[] metarialYouWantToUse;    // Kullanýlacak(deðiþim olmasý istenilen) modelin materyali
     [SerializeField] private int currentModel;
+    [Space]
+    [Header("Score Controller")]
+    public TextMeshProUGUI totalMoneyTxt;
+    public TextMeshProUGUI moneyTxt;
+    public int totalMoney;
+    private int money;
 
     private void Awake()
     {
@@ -40,6 +47,8 @@ public class GameManager : MonoBehaviour
             pakuourItemsParent.transform.GetChild(i).gameObject.AddComponent<BoxCollider>(); //pakuourItemsParent altýndaki tüm objeler collider ekler
         }
         currentModel = 0;
+        money = 0;
+        moneyTxt.text = money.ToString();
     }
     void Update()
     {
@@ -74,6 +83,7 @@ public class GameManager : MonoBehaviour
         collectedObject.gameObject.GetComponent<Collider>().isTrigger = true; // Toplanan objelerin isTrigger aktif eder(Diðer objeler temas edince toplama yapmasý için)
         collectedObject.tag = gameObject.tag;
         Collected.Add(collectedObject.transform); // Toplanan objeleri Collected listesine ekler
+        AudioController.audioControllerInstance.Play("Money");
 
         PakuourItems.Remove(collectedObject.transform); // Objelerin tutulduðu ana parent listesinden temas edilen objeler silinir 
     }
@@ -91,7 +101,8 @@ public class GameManager : MonoBehaviour
                 Collected.RemoveAt(Collected.Count - 1); // Silinnen objeler Collected listesinden atýlýr               
             }
         }
-        failGate.GetComponent<Collider>().enabled = false; // Fail(testere) kapýsýndan geçdiðimizde kapýnýn mesh collider kapat        
+        failGate.GetComponent<Collider>().enabled = false; // Fail(testere) kapýsýndan geçdiðimizde kapýnýn mesh collider kapat     
+        AudioController.audioControllerInstance.Play("Saw");
     }
     public void Restart()
     {
@@ -152,6 +163,10 @@ public class GameManager : MonoBehaviour
     public void Polishing(GameObject contactObject)
     {
         // Temas edilen objelerin cilalamasý yapýlýr
+        money++;
+        moneyTxt.text = money.ToString();
+        AudioController.audioControllerInstance.Play("Polish");
+        Debug.Log("Polish");
         // Efekt ekle
         // Para kazan
     }

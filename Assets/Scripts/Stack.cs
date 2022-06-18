@@ -39,8 +39,7 @@ public class Stack : MonoBehaviour
         }
         if (other.CompareTag("Polish"))
         {
-            // Customize içinden geçen objeler cilalanýr
-            Debug.Log("Polish");
+            // Customize içinden geçen objeler cilalanýr            
             GameManager.gamemanagerInstance.Polishing(other.gameObject);
         }
     }
