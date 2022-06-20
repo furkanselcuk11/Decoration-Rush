@@ -164,10 +164,9 @@ public class GameManager : MonoBehaviour
     {
         // Temas edilen objelerin cilalamasý yapýlýr
         money++;
-        moneyTxt.text = money.ToString();
+        moneyTxt.text = money.ToString();   // Para kazan
         AudioController.audioControllerInstance.Play("Polish");
         Debug.Log("Polish");
-        // Efekt ekle
-        // Para kazan
+        // Efekt ekle        
     }
 }
