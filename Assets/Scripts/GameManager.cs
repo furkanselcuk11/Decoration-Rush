@@ -169,4 +169,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("Polish");
         // Efekt ekle        
     }
+    public void PlaceItem()
+    {
+        // Toplanan eþyayý odaya yerleþtir
+    }
 }
