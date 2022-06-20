@@ -42,5 +42,10 @@ public class Stack : MonoBehaviour
             // Customize içinden geçen objeler cilalanýr            
             GameManager.gamemanagerInstance.Polishing(other.gameObject);
         }
+        if (other.CompareTag("Finish"))
+        {
+            // Finish içinden geçen obje odaye yerleþtirilir            
+            GameManager.gamemanagerInstance.PlaceItem(this.gameObject);
+        }
     }
 }

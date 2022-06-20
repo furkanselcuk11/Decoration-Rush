@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager gamemanagerInstance;
 
     [HideInInspector] public bool startTheGame; // Oyun baþladýmý
+    [HideInInspector] public bool isFinish; // Level bittimi
     [Space]
     [Header("Game Controller")]
     [SerializeField] private GameObject Player;
@@ -169,8 +170,13 @@ public class GameManager : MonoBehaviour
         Debug.Log("Polish");
         // Efekt ekle        
     }
-    public void PlaceItem()
+    public void PlaceItem(GameObject contactObject)
     {
         // Toplanan eþyayý odaya yerleþtir
+        Debug.Log(contactObject.name);
+        if (contactObject.name==Collected.ElementAt(1).transform.name)
+        {
+            Debug.Log("Next");
+        }
     }
 }

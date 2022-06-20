@@ -21,18 +21,18 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (GameManager.gamemanagerInstance.startTheGame)
+        if (GameManager.gamemanagerInstance.startTheGame & !GameManager.gamemanagerInstance.isFinish)
         {
-            // Eðer StartGame true ise hareket et
+            // Eðer StartGame true ve isFinish false ise hareket et
             transform.Translate(0, 0, speed * Time.fixedDeltaTime); // Karakter speed deeri hýzýdna ileri hareket eder
             anim.SetBool("isRunning", true);    // Koþma animasyonu çalýþýr
+            MoveInput();    // Player hareket kontrolü çalýþtýr
         }
         else
         {
             // Eðer StartGame False ise  hareket etmez
             anim.SetBool("isRunning", false);   // Koþma animasyonu durur ve default olarak bekleme animsayonu çalýþýr
-        }
-        MoveInput();    // Player hareket kontrolü çalýþtýr
+        }        
     }
     void MoveInput()
     {
@@ -71,6 +71,14 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Fail"))
         {
             GameManager.gamemanagerInstance.Restart();
+        }
+        if (other.CompareTag("Finish"))
+        {
+            // Finish alanýna geldiyse Level biter ve hareket etme false durumuna geçer
+            GameManager.gamemanagerInstance.isFinish = true;
+            GameManager.gamemanagerInstance.startTheGame = false;
+            // Dans animasyonu
+            // Konfeti patlat            
         }
     }
 }
