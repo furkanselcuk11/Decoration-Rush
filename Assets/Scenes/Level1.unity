@@ -3693,6 +3693,9 @@ MonoBehaviour:
   totalMoneyTxt: {fileID: 1524213508}
   moneyTxt: {fileID: 1280256956}
   totalMoney: 0
+  roomsParent: {fileID: 1932919577}
+  Rooms: []
+  roomItems: []
 --- !u!4 &1262167824
 Transform:
   m_ObjectHideFlags: 0

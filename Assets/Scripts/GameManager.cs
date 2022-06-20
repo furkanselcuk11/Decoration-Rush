@@ -31,6 +31,11 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI moneyTxt;
     public int totalMoney;
     private int money;
+    [Space]
+    [Header("Room Controller")]
+    [SerializeField] private GameObject roomsParent;    // Odalarýn tutulduðu parent obje
+    public List<GameObject> Rooms = new List<GameObject>();   // Oyundaki oda sayýlarý
+    public List<GameObject> roomItems = new List<GameObject>();   // Leveldeki odanýn eþya sayýsý
 
     private void Awake()
     {
@@ -42,11 +47,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Collected.Add(Player.transform);    // Player objesini Toplanan Objeler listesine ekler
-        for (int i = 0; i < pakuourItemsParent.transform.childCount; i++)
-        {
-            PakuourItems.Add(pakuourItemsParent.transform.GetChild(i).transform);   // Parkurda tutulan objelerin bulunduðu parent objenin altýnda kaç adet obje varsa listeye ekler
-            pakuourItemsParent.transform.GetChild(i).gameObject.AddComponent<BoxCollider>(); //pakuourItemsParent altýndaki tüm objeler collider ekler
-        }
+        PullList(); // Oyundaki listeleri çeker
         currentModel = 0;
         money = 0;
         moneyTxt.text = money.ToString();
@@ -72,6 +73,22 @@ public class GameManager : MonoBehaviour
                     sectItem.position.y,
                     Mathf.Lerp(sectItem.position.z, firstItem.position.z + diffBetweenItems, swipeSpeed * Time.deltaTime));
             }            
+        }
+    }
+    private void PullList()
+    {
+        for (int i = 0; i < pakuourItemsParent.transform.childCount; i++)
+        {
+            PakuourItems.Add(pakuourItemsParent.transform.GetChild(i).transform);   // Parkurda tutulan objelerin bulunduðu parent objenin altýnda kaç adet obje varsa listeye ekler
+            pakuourItemsParent.transform.GetChild(i).gameObject.AddComponent<BoxCollider>(); //pakuourItemsParent altýndaki tüm objeler collider ekler
+        }
+        for (int i = 0; i < roomsParent.transform.childCount; i++)
+        {
+            Rooms.Add(roomsParent.transform.GetChild(i).transform.gameObject);   // Oyundaki odalarý listeye ekler
+        }
+        for (int i = 0; i < roomsParent.transform.GetChild(0).transform.GetChild(0).transform.childCount; i++)
+        {
+            roomItems.Add(roomsParent.transform.GetChild(0).transform.GetChild(0).transform.GetChild(i).transform.gameObject);   // Açýk olan odadaki eþyalarý listeye ekler
         }
     }
 
