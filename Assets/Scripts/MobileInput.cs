@@ -13,10 +13,10 @@ public class MobileInput : MonoBehaviour
 
     [Header("Controllers")]
     public bool tap;
-    public bool swipeLeft;
-    public bool swipeRight;
-    public bool swipeUp;
-    public bool swipeDown;
+    [HideInInspector] public bool swipeLeft;
+    [HideInInspector] public bool swipeRight;
+    [HideInInspector] public bool swipeUp;
+    [HideInInspector] public bool swipeDown;
     public bool swipe;
 
     private void Awake()
