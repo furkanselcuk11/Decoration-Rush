@@ -45,7 +45,8 @@ public class Stack : MonoBehaviour
         if (other.CompareTag("Finish"))
         {
             // Finish içinden geçen obje odaye yerleþtirilir            
-            GameManager.gamemanagerInstance.PlaceItem(this.gameObject);
+            //GameManager.gamemanagerInstance.PlaceItem(this.gameObject);
+            RoomsManager.roomsmanagerInstance.PlaceItem(this.gameObject);
         }
     }
 }

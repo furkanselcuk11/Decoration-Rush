@@ -31,11 +31,12 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI moneyTxt;
     public int totalMoney;
     private int money;
-    [Space]
-    [Header("Room Controller")]
-    [SerializeField] private GameObject roomsParent;    // Odalarýn tutulduðu parent obje
-    public List<GameObject> Rooms = new List<GameObject>();   // Oyundaki oda sayýlarý
-    public List<GameObject> roomItems = new List<GameObject>();   // Leveldeki odanýn eþya sayýsý
+    //[Space]
+    //[Header("Room Controller")]
+    //[SerializeField] private GameObject roomsParent;    // Odalarýn tutulduðu parent obje
+    //public List<GameObject> Rooms = new List<GameObject>();   // Oyundaki oda sayýlarý
+    //public List<GameObject> roomItems = new List<GameObject>();   // Leveldeki odanýn eþya sayýsý
+    //public int currentRoom = 0;
 
     private void Awake()
     {
@@ -82,14 +83,14 @@ public class GameManager : MonoBehaviour
             PakuourItems.Add(pakuourItemsParent.transform.GetChild(i).transform);   // Parkurda tutulan objelerin bulunduðu parent objenin altýnda kaç adet obje varsa listeye ekler
             pakuourItemsParent.transform.GetChild(i).gameObject.AddComponent<BoxCollider>(); //pakuourItemsParent altýndaki tüm objeler collider ekler
         }
-        for (int i = 0; i < roomsParent.transform.childCount; i++)
-        {
-            Rooms.Add(roomsParent.transform.GetChild(i).transform.gameObject);   // Oyundaki odalarý listeye ekler
-        }
-        for (int i = 0; i < roomsParent.transform.GetChild(0).transform.GetChild(0).transform.childCount; i++)
-        {
-            roomItems.Add(roomsParent.transform.GetChild(0).transform.GetChild(0).transform.GetChild(i).transform.gameObject);   // Açýk olan odadaki eþyalarý listeye ekler
-        }
+        //for (int i = 0; i < roomsParent.transform.childCount; i++)
+        //{
+        //    Rooms.Add(roomsParent.transform.GetChild(i).transform.gameObject);   // Oyundaki odalarý listeye ekler
+        //}
+        //for (int i = 0; i < roomsParent.transform.GetChild(currentRoom).transform.GetChild(0).transform.childCount; i++)
+        //{
+        //    roomItems.Add(roomsParent.transform.GetChild(currentRoom).transform.GetChild(0).transform.GetChild(i).transform.gameObject);   // Açýk olan odadaki eþyalarý listeye ekler
+        //}
     }
 
     public void Add(GameObject collectedObject)
@@ -128,6 +129,11 @@ public class GameManager : MonoBehaviour
         startTheGame = false;   // Oyuna baþlamak pasif olur
         Debug.Log("GameOver");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void NextLevel()
+    {
+        // Next Level
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }
     public void Merge(GameObject mergeGate)
     {
@@ -191,19 +197,19 @@ public class GameManager : MonoBehaviour
     {
         // Toplanan eþyayý odaya yerleþtir  
 
-        if(roomItems.Where(obj => obj.name == contactObject.name).SingleOrDefault())
-        {
-            // Eðer toplanan eþya odada var ise aktif hale getir
-            Debug.Log("Mevcut");
-            GameObject temp = roomItems.Where(obj => obj.name == contactObject.name).SingleOrDefault(); // Toplanan eþyayý Temp objesine eþleþtir
-            temp.SetActive(true);
-            roomItems.Remove(temp);
-            temp.transform.parent = null;
-        }
-        else
-        {
-            // Mevcut olmayan objeyi sat
-            Debug.Log("Mevcut Deðil!!!");
-        }
+        //if(roomItems.Where(obj => obj.name == contactObject.name).SingleOrDefault())
+        //{
+        //    // Eðer toplanan eþya odada var ise aktif hale getir
+        //    Debug.Log("Mevcut");
+        //    GameObject temp = roomItems.Where(obj => obj.name == contactObject.name).SingleOrDefault(); // Toplanan eþyayý Temp objesine eþleþtir
+        //    temp.SetActive(true);
+        //    roomItems.Remove(temp);
+        //    temp.transform.parent = null;
+        //}
+        //else
+        //{
+        //    // Mevcut olmayan objeyi sat
+        //    Debug.Log("Mevcut Deðil!!!");
+        //}
     }
 }
