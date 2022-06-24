@@ -189,11 +189,21 @@ public class GameManager : MonoBehaviour
     }
     public void PlaceItem(GameObject contactObject)
     {
-        // Toplanan eþyayý odaya yerleþtir
-        Debug.Log(contactObject.name);
-        if (contactObject.name==Collected.ElementAt(1).transform.name)
+        // Toplanan eþyayý odaya yerleþtir  
+
+        if(roomItems.Where(obj => obj.name == contactObject.name).SingleOrDefault())
         {
-            Debug.Log("Next");
+            // Eðer toplanan eþya odada var ise aktif hale getir
+            Debug.Log("Mevcut");
+            GameObject temp = roomItems.Where(obj => obj.name == contactObject.name).SingleOrDefault(); // Toplanan eþyayý Temp objesine eþleþtir
+            temp.SetActive(true);
+            roomItems.Remove(temp);
+            temp.transform.parent = null;
+        }
+        else
+        {
+            // Mevcut olmayan objeyi sat
+            Debug.Log("Mevcut Deðil!!!");
         }
     }
 }
