@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Wood"))
+        if (other.CompareTag("Item"))
         {
             GameManager.gamemanagerInstance.Add(other.gameObject);
         }

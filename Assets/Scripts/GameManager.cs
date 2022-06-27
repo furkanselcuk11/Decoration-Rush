@@ -22,8 +22,7 @@ public class GameManager : MonoBehaviour
     [Header("Merge Controller")]
     [SerializeField] private List<Transform> PakuourItems = new List<Transform>(); // Parkurdaki objelerin  tutulduðu liste
     [SerializeField] private GameObject pakuourItemsParent;    // Parkurda tutulan objelerin bulunduðu parent obje
-    [SerializeField] private Mesh[] modelYouWantToUse;    // Kullanýlacak(deðiþim olmasý istenilen) modelin meshi
-    [SerializeField] private Material[] metarialYouWantToUse;    // Kullanýlacak(deðiþim olmasý istenilen) modelin materyali
+    [SerializeField] private GameObject[] modelYouWantToUse;    // Kullanýlacak(deðiþim olmasý istenilen) model
     [SerializeField] private int currentModel;
     [Space]
     [Header("Score Controller")]
@@ -31,12 +30,6 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI moneyTxt;
     public int totalMoney;
     private int money;
-    //[Space]
-    //[Header("Room Controller")]
-    //[SerializeField] private GameObject roomsParent;    // Odalarýn tutulduðu parent obje
-    //public List<GameObject> Rooms = new List<GameObject>();   // Oyundaki oda sayýlarý
-    //public List<GameObject> roomItems = new List<GameObject>();   // Leveldeki odanýn eþya sayýsý
-    //public int currentRoom = 0;
 
     private void Awake()
     {
@@ -55,10 +48,10 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        if (currentModel == 0)
-        {
-            ParkourItemsChange();
-        }
+        //if (currentModel == 0)
+        //{
+        //    ParkourItemsChange();
+        //}
     }
     private void FixedUpdate()
     {
@@ -83,14 +76,6 @@ public class GameManager : MonoBehaviour
             PakuourItems.Add(pakuourItemsParent.transform.GetChild(i).transform);   // Parkurda tutulan objelerin bulunduðu parent objenin altýnda kaç adet obje varsa listeye ekler
             pakuourItemsParent.transform.GetChild(i).gameObject.AddComponent<BoxCollider>(); //pakuourItemsParent altýndaki tüm objeler collider ekler
         }
-        //for (int i = 0; i < roomsParent.transform.childCount; i++)
-        //{
-        //    Rooms.Add(roomsParent.transform.GetChild(i).transform.gameObject);   // Oyundaki odalarý listeye ekler
-        //}
-        //for (int i = 0; i < roomsParent.transform.GetChild(currentRoom).transform.GetChild(0).transform.childCount; i++)
-        //{
-        //    roomItems.Add(roomsParent.transform.GetChild(currentRoom).transform.GetChild(0).transform.GetChild(i).transform.gameObject);   // Açýk olan odadaki eþyalarý listeye ekler
-        //}
     }
 
     public void Add(GameObject collectedObject)
@@ -159,10 +144,8 @@ public class GameManager : MonoBehaviour
                 Collected.RemoveAt(Collected.Count - 1);
             }
             // Birleþimden sonraki objeyi deðiþtirir
-            Collected.ElementAt(1).transform.GetComponent<MeshFilter>().mesh = modelYouWantToUse[currentModel]; // En baþtaki objenin mesh özelliðini deðiþtirir
-            Collected.ElementAt(1).transform.GetComponent<MeshFilter>().name = modelYouWantToUse[currentModel].name;    // En baþtaki objenin ismini deðiþtirir
-            Collected.ElementAt(1).transform.GetComponent<MeshRenderer>().material = metarialYouWantToUse[currentModel];    // En baþtaki objenin materyalini deðiþtirir
-            // pakuourItemsParent.transform.GetChild(i).GetComponent<MeshFilter>().tag="Chair";
+            Collected.ElementAt(1).transform.GetComponent<ItemsManager>().itemPrefab = modelYouWantToUse[currentModel]; // En baþtaki objenin mesh özelliðini deðiþtirir
+            Collected.ElementAt(1).transform.GetComponent<ItemsManager>().ItemsChange(); // En baþtaki objenin mesh özelliðini deðiþtirir
         }
         mergeGate.GetComponent<Collider>().enabled = false; // Merge kapýsýndan geçdiðimizde kapýnýn mesh collider kapat
     }
@@ -171,10 +154,9 @@ public class GameManager : MonoBehaviour
         // Parkurda bulunan tüm toplanacak objeleri deðiþtirir
         for (int i = 0; i < PakuourItems.Count; i++)
         {            
-            pakuourItemsParent.transform.GetChild(i).GetComponent<MeshFilter>().mesh = modelYouWantToUse[currentModel];   // pakuourItemsParent(parkurda) listesinde bulunan tüm objelerin mesh özelliðini deðiþtirir
-            pakuourItemsParent.transform.GetChild(i).GetComponent<MeshFilter>().name = modelYouWantToUse[currentModel].name;    // pakuourItemsParent(parkurda) listesinde bulunan tüm objelerin ismini deðiþtirir
-            pakuourItemsParent.transform.GetChild(i).GetComponent<MeshRenderer>().material = metarialYouWantToUse[currentModel];    // pakuourItemsParent(parkurda) listesinde bulunan tüm objelerin materyalini deðiþtirir
-            // pakuourItemsParent.transform.GetChild(i).GetComponent<MeshFilter>().tag="Chair";
+            pakuourItemsParent.transform.GetChild(i).GetComponent<ItemsManager>().itemPrefab = modelYouWantToUse[currentModel];   // pakuourItemsParent(parkurda) listesinde bulunan tüm objelerin ismini deðiþtirir
+            pakuourItemsParent.transform.GetChild(i).GetComponent<ItemsManager>().ItemsChange();    // pakuourItemsParent(parkurda) listesinde bulunan tüm objelerin ismini deðiþtirir
+
             Destroy(pakuourItemsParent.transform.GetChild(i).GetComponent<BoxCollider>());  // pakuourItemsParent(parkurda) listesinde bulunan tüm objelerin BoxCollider kaldýrýr
             pakuourItemsParent.transform.GetChild(i).gameObject.AddComponent<BoxCollider>(); // pakuourItemsParent(parkurda) listesinde bulunan tüm objelerin BoxCollider ekler (Deðiþen meshe göre Collider boyut almasý için)
         }
@@ -192,24 +174,5 @@ public class GameManager : MonoBehaviour
         AudioController.audioControllerInstance.Play("Polish");
         Debug.Log("Polish");
         // Efekt ekle        
-    }
-    public void PlaceItem(GameObject contactObject)
-    {
-        // Toplanan eþyayý odaya yerleþtir  
-
-        //if(roomItems.Where(obj => obj.name == contactObject.name).SingleOrDefault())
-        //{
-        //    // Eðer toplanan eþya odada var ise aktif hale getir
-        //    Debug.Log("Mevcut");
-        //    GameObject temp = roomItems.Where(obj => obj.name == contactObject.name).SingleOrDefault(); // Toplanan eþyayý Temp objesine eþleþtir
-        //    temp.SetActive(true);
-        //    roomItems.Remove(temp);
-        //    temp.transform.parent = null;
-        //}
-        //else
-        //{
-        //    // Mevcut olmayan objeyi sat
-        //    Debug.Log("Mevcut Deðil!!!");
-        //}
     }
 }

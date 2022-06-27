@@ -14,7 +14,7 @@ public class Stack : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Wood"))
+        if (other.CompareTag("Item"))
         {
             // Wood objesi ekler
             GameManager.gamemanagerInstance.Add(other.gameObject);
