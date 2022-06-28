@@ -7,7 +7,7 @@ public class ItemsSO : ScriptableObject
 {
     [SerializeField] private GameObject _itemPrefab;
     [SerializeField] private string _tag = "Item";
-    [SerializeField] private bool _active;
+    [SerializeField] private bool _active=false;
 
     public GameObject itemPrefab
     {

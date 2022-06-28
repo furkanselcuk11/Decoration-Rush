@@ -52,15 +52,16 @@ public class RoomsManager : MonoBehaviour
             Debug.Log("Mevcut");
             GameObject temp = roomItems.Where(obj => obj.name == contactObject.name).SingleOrDefault(); // Toplanan eþyayý Temp objesine eþleþtir
             temp.SetActive(true);
+            temp.gameObject.GetComponent<RoomItems>().ItemActive();
             roomItems.Remove(temp);
             //temp.transform.parent = null;
 
             //PullList();
-            temp.transform.parent = roomsParent.transform.GetChild(currentRoom).transform.GetChild(1);
-            activeItems.Add(temp);
+            temp.transform.parent = roomsParent.transform.GetChild(currentRoom).transform.GetChild(1);  // activeItems objesinin child objesi yap
+            activeItems.Add(temp);  // activeItems listsine ekle
 
-            PullList();
-            StartCoroutine(nameof(NextLevelCoroutine));
+            //PullList();
+            //StartCoroutine(nameof(NextLevelCoroutine));
 
         }
         else
